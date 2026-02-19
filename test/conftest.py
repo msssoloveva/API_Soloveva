@@ -37,7 +37,7 @@ def post_notes(token):
 
 @pytest.fixture
 def create_note(post_notes):
-    return post_notes.create_note()
+    return post_notes.creating_note()
 
 
 @pytest.fixture
@@ -48,6 +48,12 @@ def id_note(create_note, get_notes):
 @pytest.fixture
 def delete_notes(token, id_notes):
     return DeleteNotes(token=token, note_id=id_notes)
+
+
+@pytest.fixture
+def deleting_notes(delete_notes):
+    yield
+    delete_notes.delete_notes()
 
 # @pytest.fixture
 # def notes_id():
