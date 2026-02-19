@@ -7,7 +7,6 @@ class BaseApi:
     ENDPOINT = ""
 
     def headers(self, need_token: bool):
-
         if need_token:
             return {
                 "Accept": "application/json",
@@ -17,6 +16,7 @@ class BaseApi:
         else:
             return {"Accept": "application/json",
                     "Content-Type": "application/json"}
+
 
     def _request(self, method: str, note_id: str = None, need_token=False, json=None):
         if note_id:

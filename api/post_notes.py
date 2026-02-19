@@ -9,9 +9,14 @@ class PostNotes(BaseApi):
     def __init__(self, token):
         self.token = token
 
-    def create_note(self):
+    def creating_note(self):
         response_notes = self._request(method="POST", need_token=True, json=JsonForPostNotes.data_post)
         return response_notes
+
+    def creating_note_without_token(self):
+        response_notes = self._request(method="POST", json=JsonForPostNotes.data_post)
+        return response_notes
+
 
 # token3 = PostAuthorization().user_authorization().json()['token']
 # note = PostNotes(token3)

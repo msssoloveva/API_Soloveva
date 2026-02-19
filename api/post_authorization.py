@@ -14,7 +14,8 @@ class PostAuthorization(BaseApi):
         return auth.json()['token']
 
 
-authorization = PostAuthorization()
-response = authorization.get_token()
-print(f" Token Bearer: {response}")
-# print(f" Тело ответа POST: {response.json()}")
+
+# authorization = PostAuthorization()
+# response = authorization.get_token()
+# print(f" Token Bearer: {response}")
+# # print(f" Тело ответа POST: {response.json()}")
