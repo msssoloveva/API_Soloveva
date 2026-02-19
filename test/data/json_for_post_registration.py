@@ -1,6 +1,6 @@
 class JsonForPostRegistration:
     data_post = {
-    "email": "soloveva@test.ru",
+    "email": "soloveva2@test.ru",
     "password": "Banan123",
-    "username": "Svetlana"
+    "username": "Svetlana2"
     }

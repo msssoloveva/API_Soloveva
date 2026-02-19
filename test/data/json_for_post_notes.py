@@ -1,6 +1,5 @@
-class JsonForPostRegistration:
+class JsonForPostNotes:
     data_post = {
-    "email": "soloveva@test.ru",
-    "password": "Banan123",
-    "username": "Svetlana"
-    }
+  "content": "Банан",
+  "title": "синий"
+}

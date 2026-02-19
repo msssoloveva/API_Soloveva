@@ -1,9 +1,27 @@
 import requests
 
+
 class BaseApi:
     BASE_URL = "http://185.240.103.201:8000"
-    ENDPOINT = "/api/register"
-    HEADERS = {"accept: application/json", "Content-Type: application/json"}
+    token = ""
+    ENDPOINT = ""
 
-# 1)Авторизация\Регистрация (пользователь)
+    def headers(self, need_token: bool):
 
+        if need_token:
+            return {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {self.token}"
+            }
+        else:
+            return {"Accept": "application/json",
+                    "Content-Type": "application/json"}
+
+    def _request(self, method: str, note_id: str = None, need_token=False, json=None):
+        if note_id:
+            url = f"{self.BASE_URL}{self.ENDPOINT}/{note_id}"
+        else:
+            url = f"{self.BASE_URL}{self.ENDPOINT}"
+        response = requests.request(method, url, headers=self.headers(need_token), json=json)
+        return response

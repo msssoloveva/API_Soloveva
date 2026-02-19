@@ -1,24 +1,21 @@
-import requests
+from api.base_api import BaseApi
+from api.post_authorization import PostAuthorization
 
-from test.data.json_for_post_notes import JsonForPostNotes
 
-class DeleteNotes:
-    BASE_URL = "http://185.240.103.201:8000"
-    ENDPOINT = f"/api/notes/{note_id}"
-    HEADERS = f"{'accept': 'application/json','Content-Type': 'application/json','Authorization': '{self.token}'}"
+class DeleteNotes(BaseApi):
+    ENDPOINT = f"/api/notes"
 
     def __init__(self, token, note_id):
         self.note_id = note_id
         self.token = token
 
-    def headers(self):
-        return {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {self.token}"
-        }
-
     def delete_notes(self):
-        response_notes=requests.post(url=f"{self.BASE_URL}{self.ENDPOINT}", headers=self.HEADERS,
-                                            json=JsonForPostNotes.data_post)
+        response_notes = self._request(method="DELETE", note_id=self.note_id, need_token=True)
         return response_notes
+
+
+token2 = PostAuthorization().user_authorization().json()['token']
+# delete_id = DeleteNotes(token2, 3407)
+# response = delete_id.delete_notes()
+# print(f"Успешно удален. Status code: {response.status_code}")
+# print(f"Тело ответа DELETE: {response.text}")

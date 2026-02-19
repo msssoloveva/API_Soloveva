@@ -1,18 +1,20 @@
-import requests
-
+from api.base_api import BaseApi
 from test.data.json_for_post_authorization import JsonForPostAuthorization
 
 
-class PostAuthorization:
-    BASE_URL = "http://185.240.103.201:8000"
+class PostAuthorization(BaseApi):
     ENDPOINT = "/api/login"
-    HEADERS = {"accept": "application/json", "Content-Type": "application/json"}
+
     def user_authorization(self):
-        response_authorization=requests.post(url=f"{self.BASE_URL}{self.ENDPOINT}", headers=self.HEADERS,
-                                            json=JsonForPostAuthorization.data_authorization)
+        response_authorization = self._request(method="POST", json=JsonForPostAuthorization.data_authorization)
         return response_authorization
 
-registration = PostAuthorization()
-response = registration.user_authorization()
-print(f"✅ Успешно создан. Status code: {response.status_code}")
-print(f"📦 Тело ответа POST: {response.json()}")
+    def get_token(self):
+        auth = self.user_authorization()
+        return auth.json()['token']
+
+
+authorization = PostAuthorization()
+response = authorization.get_token()
+print(f" Token Bearer: {response}")
+# print(f" Тело ответа POST: {response.json()}")

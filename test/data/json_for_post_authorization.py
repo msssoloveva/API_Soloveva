@@ -1,6 +1,5 @@
-class JsonForPostRegistration:
-    data_post = {
+class JsonForPostAuthorization:
+    data_authorization = {
     "email": "soloveva@test.ru",
     "password": "Banan123",
-    "username": "Svetlana"
     }
