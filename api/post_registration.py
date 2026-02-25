@@ -8,8 +8,3 @@ class PostRegistration(BaseApi):
     def user_registration(self):
         response_registration = self._request(method="POST", json=JsonForPostRegistration.data_post)
         return response_registration
-
-# registration = PostRegistration()
-# response = registration.user_registration()
-# # print(f"Пользователь создан. Status code: {response.status_code}")
-# # print(f"Тело ответа POST: {response.json()}")

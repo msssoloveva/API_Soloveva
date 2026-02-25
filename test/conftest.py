@@ -1,28 +1,24 @@
 import pytest
-import requests
-
 from api.delete_notes import DeleteNotes
 from api.get_notes import GetNotes
 from api.post_notes import PostNotes
 from api.post_authorization import PostAuthorization
 from api.post_registration import PostRegistration
-from test.data.json_for_post_registration import JsonForPostRegistration
-from test.data.json_for_post_notes import JsonForPostNotes
 
 
 @pytest.fixture
-def post_registration():
+def user_registration_post():
     return PostRegistration()
 
 
 @pytest.fixture
-def post_authorization():
+def user_authorization_login():
     return PostAuthorization()
 
 
 @pytest.fixture
-def token(post_authorization):
-    return post_authorization.get_token()
+def token(user_authorization_login):
+    return user_authorization_login.get_token()
 
 
 @pytest.fixture
@@ -41,31 +37,35 @@ def create_note(post_notes):
 
 
 @pytest.fixture
-def id_note(create_note, get_notes):
-    return get_notes.get_notes_id(title=JsonForPostNotes.data_post["title"])
+def get_note_id_by_title(get_notes):
+    def _get_id(title: str):
+        note_id = get_notes.get_notes_id(title=title)
+        return note_id
+
+    return _get_id
 
 
 @pytest.fixture
-def delete_notes(token, id_notes):
-    return DeleteNotes(token=token, note_id=id_notes)
+def delete_note(token):
+    return DeleteNotes(token=token)
 
 
 @pytest.fixture
-def deleting_notes(delete_notes):
+def deleting_notes(delete_note):
     yield
-    delete_notes.delete_notes()
+    delete_note.delete_note()
 
-# @pytest.fixture
-# def notes_id():
-#     return JsonForPostNotes.data_post()
-# @pytest.fixture
-# def registration_data():
-#     return JsonForPostRegistration.data_post.copy()
 
-# @pytest.fixture
-# def new_post_registration():
-#     return {
-#     "email": "soloveva@test.ru",
-#     "password": "Banan1234",
-#     "username": "Svetlana"
-#     }
+@pytest.fixture
+def delete_note_id_by_title(get_note_id_by_title, delete_note):
+    def _delete_by_title(title: str):
+        note_id = get_note_id_by_title(title)
+        if note_id:
+            delete_note.note_id = note_id
+            response = delete_note.delete_note()
+            return response
+        else:
+            print(f"Заметка не найдена")
+            return None
+
+    return _delete_by_title
