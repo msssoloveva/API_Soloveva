@@ -6,14 +6,7 @@ class DeleteNotes(BaseApi):
 
     def __init__(self, token):
         self.token = token
-        self.note_id = None
 
-    def delete_note(self, note_id=None):
-        if note_id:
-            # Используем переданный ID
-            response_notes = self._request(method="DELETE", note_id=note_id, need_token=True)
-        else:
-            # Используем сохраненный ID
-            response_notes = self._request(method="DELETE", note_id=self.note_id, need_token=True)
-
-        return response_notes
+    def delete_notes(self, note_id):
+        response_delete = self._request(method="DELETE", note_id=note_id, need_token=True)
+        return response_delete
