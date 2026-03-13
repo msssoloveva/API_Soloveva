@@ -1,14 +1,14 @@
 from api.base_api import BaseApi
-from test.data.json_for_post_authorization import JsonForPostAuthorization
 
 
 class PostAuthorization(BaseApi):
     ENDPOINT = "/api/login"
 
-    def user_authorization(self):
-        response_authorization = self._request(method="POST", json=JsonForPostAuthorization.data_authorization)
+    def user_authorization(self, email, password):
+        body = {"email": email, "password": password}
+        response_authorization = self._request(method="POST", json=body)
         return response_authorization
 
-    def get_token(self):
-        auth = self.user_authorization()
+    def get_token(self, email, password):
+        auth = self.user_authorization(email, password)
         return auth.json()['token']

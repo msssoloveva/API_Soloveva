@@ -6,11 +6,14 @@ class TestGetNotes:
         assert type(json_response) == list
         assert len(json_response) > 0
 
-    def test_get_note_id(self, get_note_id_by_title, setup_teardown_note):
-        note_id = get_note_id_by_title
+    def test_get_note_id(self, get_notes, setup_teardown_note):
+        note_id = get_notes.get_notes_id("рулон")
         assert note_id is not None
         assert isinstance(note_id, int)
 
-    def test_get_note_id_non(self, get_note_id_by_title):
-        note_id = get_note_id_by_title("несуществующий_title")
-        assert note_id is None
+
+    def test_get_note_without_token(self, get_notes, setup_teardown_note):
+        response = get_notes.get_notes_without_token()
+        json_response = response.json()
+        assert response.status_code == 401
+        assert json_response["message"] == "Token is missing!"
