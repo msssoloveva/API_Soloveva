@@ -1,12 +1,9 @@
-from test.data.json_for_post_notes import JsonForPostNotes
-
-
 class TestDeleteNotes:
-    def test_delete_note(self, delete_note_by_title, post_notes, get_notes):
-        original_title = JsonForPostNotes.data_post["title"]
-        JsonForPostNotes.data_post["title"] = "синий"
-        JsonForPostNotes.data_post["title"] = original_title
-        create_response = post_notes.creating_note()
-        assert create_response.status_code == 201
-        response = delete_note_by_title("синий")
+    def test_delete_note(self, take_create_note, delete_notes):
+        note_id = take_create_note
+        assert note_id is not None
+        response = delete_notes.delete_notes(note_id)
         assert response.status_code == 200
+        json_response = response.json()
+        assert json_response["message"] == "Note deleted!"
+        print(f"Заметка {note_id} успешно удалена")

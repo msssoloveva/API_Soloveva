@@ -17,3 +17,7 @@ class GetNotes(BaseApi):
             if note['title'] == title:
                 return note['id']
         return None
+
+    def get_notes_without_token(self):
+        response_all_notes = self._request(method="GET")
+        return response_all_notes
