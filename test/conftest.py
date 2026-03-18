@@ -25,7 +25,7 @@ def token(user_authorization):
 
 
 @pytest.fixture
-def note_creator(token):
+def post_notes(token):
     return PostNotes(token)
 
 
@@ -53,7 +53,7 @@ def create_and_delete_note(take_create_note, delete_notes):
 
 
 @pytest.fixture
-def take_create_note(note_creator, get_notes):
-    note_creator.creating_note(JsonForPostNotes.data_post["content"], JsonForPostNotes.data_post["title"])
+def take_create_note(post_notes, get_notes):
+    post_notes.creating_note(JsonForPostNotes.data_post["content"], JsonForPostNotes.data_post["title"])
     id_note = get_notes.get_notes_id(JsonForPostNotes.data_post["title"])
     return id_note
