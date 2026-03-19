@@ -9,18 +9,18 @@ from test.data.json_for_post_notes import JsonForPostNotes
 
 
 @pytest.fixture
-def user_registration():
+def post_registration():
     return PostRegistration()
 
 
 @pytest.fixture
-def user_authorization():
+def post_authorization():
     return PostAuthorization()
 
 
 @pytest.fixture
-def token(user_authorization):
-    return user_authorization.get_token(email=JsonForPostAuthorization.data_authorization["email"],
+def token(post_authorization):
+    return post_authorization.get_token(email=JsonForPostAuthorization.data_authorization["email"],
                                         password=JsonForPostAuthorization.data_authorization["password"])
 
 
