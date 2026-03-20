@@ -5,4 +5,3 @@ class TestDeleteNotes:
         assert response.status_code == 200
         json_response = response.json()
         assert json_response["message"] == "Note deleted!"
-        print(f"Заметка {take_create_note} успешно удалена")
