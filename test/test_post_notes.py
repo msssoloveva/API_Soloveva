@@ -16,7 +16,7 @@ class TestPostNotes:
 
     def test_create_note_with_invalid_token(self):
         obj_note = PostNotes("")
-        response = obj_note.creating_note(content="Банан",title="оранжевый")
+        response = obj_note.creating_note(content="Банан", title="оранжевый")
         json_response = response.json()
         assert response.status_code == 403
         assert json_response["message"] == "Token is invalid or expired!"

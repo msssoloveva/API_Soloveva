@@ -11,7 +11,6 @@ class TestGetNotes:
         assert note_id is not None
         assert isinstance(note_id, int)
 
-
     def test_get_note_without_token(self, get_notes, create_and_delete_note):
         response = get_notes.get_notes_without_token()
         json_response = response.json()
